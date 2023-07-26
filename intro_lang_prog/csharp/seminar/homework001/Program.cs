@@ -71,6 +71,7 @@ if (numMax < num3) numMax = num3;
 Console.WriteLine("Максимальное число: " + numMax);
 */
 
+
 /* Задача 6.
 Написать программу, которая на вход принимает число и
 сообщает, является ли это число чётным.
@@ -137,4 +138,16 @@ while (count <= num)
     if ((count % 2) == 0) Console.Write(count + " ");
     count++;
 }
+
+// Возможен и 3-ий вариант.
+// Непосредственно перебирать только чётные величины.
+
+int count = 2;
+
+while (count <= num)
+{
+    Console.Write(count + " ");
+    count += 2;
+}
+
 */
