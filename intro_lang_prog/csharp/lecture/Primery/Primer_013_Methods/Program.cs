@@ -161,3 +161,88 @@
 
 // Задание: попробовать адаптировать метод для
 // сортировки массива в обратном порядке
+
+int WriteWait(string outLine)
+{
+    Console.Write(outLine);
+    int inNumber = Convert.ToInt32(Console.ReadLine());
+    return inNumber;
+}
+
+int[] GenArray(int size, int min, int max)
+{
+    int[] randArr = new int[size];
+
+    for (int i = 0; i < size; i++)
+        randArr[i] = new Random().Next(min, max + 1);
+
+    return randArr;
+}
+
+void OutArr(int elem, int[] arr)
+{
+    Console.Write("[");
+    for (int i = 0; i < elem - 1; i++)
+        Console.Write($"{arr[i]}; ");
+    Console.WriteLine(arr[elem - 1] + "]");
+}
+
+int[] SortedFromMinToMax(int numElem, int[] inArr)
+{
+    int[] tempArr = inArr;
+
+    for (int k = 0; k < numElem - 1; k++)
+    {
+        int indexMin = k;
+
+        for (int i = k + 1; i < numElem; i++)
+        {
+            if (tempArr[i] < tempArr[indexMin])
+                indexMin = i;
+        }
+
+        int temp = tempArr[k];
+        tempArr[k] = tempArr[indexMin];
+        tempArr[indexMin] = temp;
+    }
+    return tempArr;
+}
+
+int[] SortedFromMaxToMin(int numElem, int[] inArr)
+{
+    for (int k = 0; k < numElem - 1; k++)
+    {
+        int indexMax = k;
+
+        for (int i = k + 1; i < numElem; i++)
+        {
+            if (inArr[i] > inArr[indexMax])
+                indexMax = i;
+        }
+
+        int temp = inArr[k];
+        inArr[k] = inArr[indexMax];
+        inArr[indexMax] = temp;
+    }
+    return inArr;
+}
+
+
+int numOfElem = WriteWait("Введите количество элементов массива: ");
+int minVal = WriteWait("Введите минимальное значение элемнта массива: ");
+int maxVal = WriteWait("Введите максимальное значение элемента массива: ");
+
+int[] genArray = GenArray(numOfElem, minVal, maxVal);
+Console.WriteLine();
+Console.WriteLine("Сгенерированный массив:");
+OutArr(numOfElem, genArray);
+
+int[] sortMinMax = SortedFromMinToMax(numOfElem, genArray);
+Console.WriteLine();
+Console.WriteLine("Массив, отсортированный от меньшего к большему:");
+OutArr(numOfElem, sortMinMax);
+
+int[] sortMaxMin = SortedFromMaxToMin(numOfElem, genArray);
+Console.WriteLine();
+Console.WriteLine("Массив, отсортированный от большего к меньшему:");
+OutArr(numOfElem, sortMaxMin);
