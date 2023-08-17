@@ -189,23 +189,21 @@ void OutArr(int elem, int[] arr)
 
 int[] SortedFromMinToMax(int numElem, int[] inArr)
 {
-    int[] tempArr = inArr;
-
     for (int k = 0; k < numElem - 1; k++)
     {
         int indexMin = k;
 
         for (int i = k + 1; i < numElem; i++)
         {
-            if (tempArr[i] < tempArr[indexMin])
+            if (inArr[i] < inArr[indexMin])
                 indexMin = i;
         }
 
-        int temp = tempArr[k];
-        tempArr[k] = tempArr[indexMin];
-        tempArr[indexMin] = temp;
+        int temp = inArr[k];
+        inArr[k] = inArr[indexMin];
+        inArr[indexMin] = temp;
     }
-    return tempArr;
+    return inArr;
 }
 
 int[] SortedFromMaxToMin(int numElem, int[] inArr)
