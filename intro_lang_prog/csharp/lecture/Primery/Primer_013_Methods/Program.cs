@@ -225,22 +225,29 @@ int[] SortedFromMaxToMin(int numElem, int[] inArr)
     return inArr;
 }
 
+int[] array;
 
+Repeat:
 int numOfElem = WriteWait("Введите количество элементов массива: ");
+if (numOfElem < 1)
+{
+    Console.WriteLine("Количество элементов массива не может быть меньше 1!");
+    goto Repeat;
+}
 int minVal = WriteWait("Введите минимальное значение элемнта массива: ");
 int maxVal = WriteWait("Введите максимальное значение элемента массива: ");
 
-int[] genArray = GenArray(numOfElem, minVal, maxVal);
+array = GenArray(numOfElem, minVal, maxVal);
 Console.WriteLine();
 Console.WriteLine("Сгенерированный массив:");
-OutArr(numOfElem, genArray);
+OutArr(numOfElem, array);
 
-int[] sortMinMax = SortedFromMinToMax(numOfElem, genArray);
+array = SortedFromMinToMax(numOfElem, array);
 Console.WriteLine();
 Console.WriteLine("Массив, отсортированный от меньшего к большему:");
-OutArr(numOfElem, sortMinMax);
+OutArr(numOfElem, array);
 
-int[] sortMaxMin = SortedFromMaxToMin(numOfElem, genArray);
+array = SortedFromMaxToMin(numOfElem, array);
 Console.WriteLine();
 Console.WriteLine("Массив, отсортированный от большего к меньшему:");
-OutArr(numOfElem, sortMaxMin);
+OutArr(numOfElem, array);
