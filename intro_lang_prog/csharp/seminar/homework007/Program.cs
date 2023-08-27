@@ -74,7 +74,8 @@ Console.WriteLine();
 индексов строки и столбца, с последующим преобразованием введённых
 значений в соответствующие индексы массива. Любопытства ради.
 И да простит мне мою вольность преподаватель!
-
+В первом варианте разделитель индексов строки и столбца может быть
+любой, но при этом сам метод не лучший и немного запутанный.
 
 // Для начала создадим случайный массив
 
@@ -179,9 +180,8 @@ Console.WriteLine();
 
 Repeat:
 
-Console.Write(
-    "Введите индексы искомого элемента, разделяя их любым нецифровым " +
-        "символом\n(например, индекс_строки,индекс_столбца): "
+Console.Write("Введите индексы искомого элемента, разделяя их любым нецифровым " +
+                "символом\n(например, индекс_строки,индекс_столбца): "
 );
 
 string inRowCol = Console.ReadLine(); // считываем с консоли введённую строку
@@ -190,6 +190,99 @@ char[] chars = inRowCol.ToCharArray(0, inRowCol.Length); // преобразов
 Console.WriteLine();
 bool result = Analysis(chars, generatedArray); // проверяем результат работы метода поиска элемента,
                                                // и в случае ошибки просим повторить ввод
+if (!result)
+    goto Repeat;
+*/
+
+/*
+Второй вариант решения задачи 50. Здесь строго определённые
+разделители индексов строки и столбца.
+
+
+int[,] CreatingArray()
+{
+    Random rnd = new Random();
+
+    int rows = rnd.Next(5, 16); // генерируем количество строк от 5 до 15
+    int columns = rnd.Next(5, 16); // генерируем количество столбцов от 5 до 15
+
+    int[,] array = new int[rows, columns]; // по полученным данным резервируем под массив память
+
+    for (int r = 0; r < rows; r++) // заполняем массив случайными целыми числами от -20 до 20
+    {
+        for (int c = 0; c < columns; c++)
+            array[r, c] = rnd.Next(-20, 21);
+    }
+
+    return array;
+}
+
+void ShowArray(int[,] array)
+{
+    for (int r = 0; r < array.GetLength(0); r++)
+    {
+        for (int c = 0; c < array.GetLength(1); c++)
+            Console.Write(array[r, c] + " ");
+
+        Console.WriteLine();
+    }
+}
+
+bool Analysis(string[] array, int[,] inArray)
+{
+    if (array.Length < 2 || array.Length > 2) // проверяем, чтобы в строке было ровно 2 числа
+        goto Mistake;
+
+    int indexRow = Convert.ToInt32(array[0]); // первое число присваиваем индексу строки
+    if (indexRow >= inArray.GetLength(0)) // если индекс вышел за пределы массива, выводим сообщение
+										  // об ошибке
+    {
+        Console.WriteLine($"Строки с индексом {indexRow} не существует.");
+        goto Mistake;
+    }
+
+    int indexColumn = Convert.ToInt32(array[1]); // второе число присваиваем индексу столбца
+    if (indexColumn >= inArray.GetLength(1)) // проверяем попадание индекса в пределы массива
+    {
+        Console.WriteLine($"Столбца с индексом {indexColumn} не существует.");
+        goto Mistake;
+    }
+
+    Console.WriteLine(
+        $"В позиции [{indexRow}, {indexColumn}] находится элемент "
+            + $"{inArray[indexRow, indexColumn]}.\n"
+    );
+
+    return true;
+
+    Mistake:
+
+    Console.WriteLine("Ошибка ввода.\n");
+    return false;
+}
+
+char[] delimiterSymbols = { ' ', ',', '.', ';' }; // массив разделителей для введённых индексов
+
+Console.WriteLine("Программа создаёт случайный двумерный массив и выводит элемент,\n" +
+                    "из указанной пользователем ячейки.\n"
+);
+
+int[,] generatedArray = CreatingArray(); // генерируем массив
+ShowArray(generatedArray); // и выводим его на экран
+Console.WriteLine();
+
+Repeat:
+
+Console.Write("Введите индексы искомого элемента, разделяя их запятой, точкой, " +
+                "пробелом,\nили точкой с запятой (например, индекс_строки;индекс_столбца): "
+);
+
+string inRowCol = Console.ReadLine(); // считываем с консоли введённую строку
+string[] numbers = inRowCol.Split(delimiterSymbols); // преобразовываем в массив из чисел
+
+Console.WriteLine();
+bool result = Analysis(numbers, generatedArray); // проверяем результат работы метода поиска элемента,
+                                                 // и в случае ошибки просим повторить ввод
 if (!result)
     goto Repeat;
 */
