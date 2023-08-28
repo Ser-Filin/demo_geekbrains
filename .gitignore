@@ -1,5 +1,9 @@
+.vs
 bin
 obj
+Properties
 .vscode
+App.config
+*.csproj
 *.sln
 Experiment
